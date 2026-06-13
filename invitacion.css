@@ -4,109 +4,150 @@ body {
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  background-color: #fae1dd;
+  background-color: #330000;
   margin: 0;
+  overflow: hidden;
 }
 
 .contenedor {
   position: relative;
 }
 
+/* Carta: fullscreen, parte invisible y colapsada en el centro del sobre */
 .mensaje {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1); /* estado inicial */
-  width: 360px;
-  height: 240px;
-  z-index: -1;
-  transition: transform 0.75s ease-in-out, z-index 0.75s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 14vh 22vw 16vh 22vw;
+  text-align: center;
+  font-size: 1.6rem;
 
-  background-image: url("carta.jpeg");
-  background-size: contain;
+  /* 👇 AQUI cambias el nombre / extension del archivo de la imagen */
+  background-image: url('carta2.jpg');
+
+  /* 👇 AQUI cambias el TAMAÑO de la imagen por separado:
+        primer valor  = ANCHO   (horizontal)
+        segundo valor = LARGO   (vertical)
+        Ej: 100% 100%  -> llena toda la pantalla
+            90%  100%  -> mas angosta, alto completo
+            100% 80%   -> ancho completo, mas baja
+            70%  60%   -> mas chica con borde vino alrededor */
+  background-size: 100% 100%;
+
   background-position: center;
   background-repeat: no-repeat;
 
-  text-align: center;
-  font-family: "Brush Script MT", cursive;
-  font-size: 22px;
-  color: white;
-  padding: 1rem;
-  margin: 0;
-  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0);
+  transform-origin: 50% 50%;
+
+  transition: transform 0.8s ease-in-out,
+              opacity   0.8s ease-in-out,
+              visibility 0.8s ease-in-out;
+  z-index: 100;
 }
 
-/* Carta abierta */
+
+.dorado {
+  background: linear-gradient(45deg, #ffd700, #ffa500, #fff8dc);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
 .desdoblada {
-  transform: translate(-50%, -50%) scale(1.5);
-  z-index: 10;
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Animación inversa: volver al sobre */
 @keyframes plegarYCerrar {
-  0%   { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
-  50%  { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  0%   { transform: scale(1); opacity: 1; visibility: visible; }
+  100% { transform: scale(0); opacity: 0; visibility: hidden; }
 }
 
 .cerrando {
   animation: plegarYCerrar 0.8s ease-in-out forwards;
-  z-index: -1;
+  transform-origin: 50% 50%;
+  z-index: 100;
 }
 
-/* Animacion del sobre cerrar */
 @keyframes cerrarSobre {
-  0% {transform : rotateX(180deg);}
-  100% {transform: rotateX(0deg);}
+  0%   { transform: rotateX(180deg); }
+  100% { transform: rotateX(0deg); }
 }
 
-.superior.cerrando-sobre{
+.superior.cerrando-sobre {
   animation: cerrarSobre 0.8s ease-in-out forwards;
 }
 
-/* Sobre */
 .superior {
   position: absolute;
   border-left: 180px solid transparent;
   border-right: 180px solid transparent;
-  border-top: 120px solid #f08080;
+  border-top: 120px solid #E0E0E0;
   border-bottom: 120px solid transparent;
-  transition: transform .75s;
-  transform-origin: top;
+  transition: transform .75s ease-in-out;
+  transform-origin: top center;
+}
+
+.superior.abrir-superior {
+  transform: perspective(600px) rotateX(180deg);
+  z-index: -1;
 }
 
 .carta {
-  border-left: 180px solid #f8ad9d;
-  border-right: 180px solid #f4978e;
+  border-left: 180px solid #FAFAFA;
+  border-right: 180px solid #EEEEEE;
   border-top: 120px solid transparent;
-  border-bottom: 120px solid #f8ad9d;
+  border-bottom: 120px solid #FAFAFA;
 }
 
-/* Botón cerrar */
 .cerrar {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  padding: 8px 16px;
-  background: linear-gradient(135deg, #ff66b2, #ff4081);
+  bottom: 30px;
+  right: 30px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #FAFAF9, #F4F4F5);
   border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 14px;
+  border-radius: 6px;
+  color: #09090B;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  display: none;
-  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+  z-index: 3;
 }
 
-.cerrar.shrink {
-  transform: scale(0.5);
-  opacity: 0;
-}
-
-/* Efecto borroso */
 .borroso {
   filter: blur(5px);
   transition: filter 0.5s ease-in-out;
+}
+
+.sello {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  background-image: url('sello.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 20;
+  opacity: 0.95;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.contenedor:has(.desdoblada) .sello {
+  opacity: 0;
 }
