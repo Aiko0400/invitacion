@@ -10,6 +10,9 @@ function abrirCarta() {
   const carta     = document.querySelector(".carta");
   const selloEl   = document.querySelector(".sello");
 
+  // 👇 Reinicia el scroll a la primera hoja
+  ElementoMensaje.scrollTop = 0;
+
   ElementoSuperior.classList.add("abrir-superior");
 
   h1.classList.add("borroso");
@@ -21,6 +24,9 @@ function abrirCarta() {
   setTimeout(() => {
     ElementoSuperior.style.zIndex = 0;
     ElementoMensaje.classList.add("desdoblada");
+
+    // 👇 Lo forzamos otra vez por si scroll-snap reposiciona al mostrar
+    ElementoMensaje.scrollTop = 0;
   }, 700);
 }
 
@@ -37,6 +43,9 @@ function cerrarCarta() {
 
   setTimeout(() => {
     ElementoMensaje.classList.remove("cerrando");
+
+    // 👇 Tambien lo regresamos al inicio para la proxima vez que se abra
+    ElementoMensaje.scrollTop = 0;
 
     h1.classList.remove("borroso");
     psorpresa.classList.remove("borroso");

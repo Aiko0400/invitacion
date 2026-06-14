@@ -1,3 +1,6 @@
+/* Fuente cursiva para la fecha */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 body {
   display: flex;
   justify-content: center;
@@ -13,7 +16,7 @@ body {
   position: relative;
 }
 
-/* Carta: fullscreen, parte invisible y colapsada en el centro del sobre */
+/* Contenedor de las hojas (con scroll) */
 .mensaje {
   position: fixed;
   top: 0;
@@ -21,24 +24,8 @@ body {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
-  padding: 14vh 22vw 16vh 22vw;
-  text-align: center;
-  font-size: 1.6rem;
-
-  /* 👇 AQUI cambias el nombre / extension del archivo de la imagen */
-  background-image: url('carta2.jpg');
-
-  /* 👇 AQUI cambias el TAMAÑO de la imagen por separado:
-        primer valor  = ANCHO   (horizontal)
-        segundo valor = LARGO   (vertical)
-        Ej: 100% 100%  -> llena toda la pantalla
-            90%  100%  -> mas angosta, alto completo
-            100% 80%   -> ancho completo, mas baja
-            70%  60%   -> mas chica con borde vino alrededor */
-  background-size: 100% 100%;
-
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
 
   opacity: 0;
   visibility: hidden;
@@ -51,7 +38,83 @@ body {
   z-index: 100;
 }
 
+/* Cada hoja ocupa toda la pantalla */
+.hoja {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 12vh 12vw;
+  text-align: center;
+  font-size: 1.4rem;
 
+  background-image: url('carta.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+
+  scroll-snap-align: start;
+
+  color: #000000;
+}
+
+.hoja h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  font-weight: normal;
+  line-height: 1.2;
+  margin: 0.8rem 0;
+  color: #000000;
+  white-space: nowrap;        /* 👈 nunca se parten en dos lineas */
+}
+
+.hoja p {
+  margin: 0.2rem 0;
+  color: #000000;
+}
+
+.hoja a {
+  color: #000000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Nota — parrafos y spans dentro mas chicos */
+.nota-texto p,
+.nota-texto p span {
+  font-size: 1.4rem !important;
+  line-height: 1.3 !important;
+  font-style: italic !important;
+}
+
+
+
+/* ===== Fecha cursiva (Diseño 3) ===== */
+.fecha-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  line-height: 1.2;
+  margin: 0.8rem 0;
+  color: #000000;
+}
+.fecha-script span {
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: #5a0a0a;
+}
+.fecha-script small {
+  font-size: 1.6rem;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* Texto dorado SOLO afuera del sobre */
 .dorado {
   background: linear-gradient(45deg, #ffd700, #ffa500, #fff8dc);
   background-clip: text;
@@ -61,12 +124,14 @@ body {
   font-weight: bold;
 }
 
+/* Estado abierto */
 .desdoblada {
   transform: scale(1);
   opacity: 1;
   visibility: visible;
 }
 
+/* Animacion de cierre */
 @keyframes plegarYCerrar {
   0%   { transform: scale(1); opacity: 1; visibility: visible; }
   100% { transform: scale(0); opacity: 0; visibility: hidden; }
@@ -87,6 +152,7 @@ body {
   animation: cerrarSobre 0.8s ease-in-out forwards;
 }
 
+/* Sobre */
 .superior {
   position: absolute;
   border-left: 180px solid transparent;
@@ -109,6 +175,7 @@ body {
   border-bottom: 120px solid #FAFAFA;
 }
 
+/* Boton cerrar: solo en la esquina inferior derecha de Recepcion */
 .cerrar {
   position: absolute;
   bottom: 30px;
@@ -130,6 +197,7 @@ body {
   transition: filter 0.5s ease-in-out;
 }
 
+/* Sello */
 .sello {
   position: absolute;
   top: 50%;
@@ -151,3 +219,24 @@ body {
 .contenedor:has(.desdoblada) .sello {
   opacity: 0;
 }
+
+
+/* ===== Fuentes cursivas (con !important para que ganen sobre h2/p) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pinyon+Script&family=Dancing+Script:wght@400;700&family=Parisienne&family=Sacramento&family=Allura&display=swap');
+
+.cursiva-fina      { font-family: 'Great Vibes', cursive !important; }
+.cursiva-formal    { font-family: 'Pinyon Script', cursive !important; }
+.cursiva-moderna   { font-family: 'Dancing Script', cursive !important; }
+.cursiva-romantica { font-family: 'Parisienne', cursive !important; }
+.cursiva-pluma     { font-family: 'Sacramento', cursive !important; }
+.cursiva-suave     { font-family: 'Allura', cursive !important; }
+
+
+/* ===== Tamaños utilitarios ===== */
+.txt-xs       { font-size: 0.85rem !important; }
+.txt-chico    { font-size: 1rem    !important; }
+.txt-normal   { font-size: 1.2rem  !important; }
+.txt-mediano  { font-size: 1.5rem  !important; }
+.txt-grande   { font-size: 1.8rem  !important; }
+.txt-xl       { font-size: 2.2rem  !important; }
+.txt-xxl      { font-size: 3rem    !important; }
