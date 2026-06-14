@@ -175,13 +175,12 @@ body {
   border-bottom: 120px solid #FAFAFA;
 }
 
-/* Boton cerrar: solo en la esquina inferior derecha de Recepcion */
+/* Boton cerrar — centrado debajo de la nota */
 .cerrar {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #FAFAF9, #F4F4F5);
+  display: block;
+  margin: 5.5rem auto 0;       /* 👈 centrado horizontal con auto */
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #FBF5DD, #FFF6DE);
   border: none;
   border-radius: 6px;
   color: #09090B;
@@ -191,6 +190,7 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   z-index: 3;
 }
+
 
 .borroso {
   filter: blur(5px);
@@ -240,3 +240,9 @@ body {
 .txt-grande   { font-size: 1.8rem  !important; }
 .txt-xl       { font-size: 2.2rem  !important; }
 .txt-xxl      { font-size: 3rem    !important; }
+
+/* Hoja de Recepcion — empuja el contenido un poco mas abajo */
+.hoja:last-of-type {
+  justify-content: flex-start;
+  padding-top: 18vh;          /* 👈 antes 12vh, ahora con mas espacio arriba */
+}
