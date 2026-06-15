@@ -260,19 +260,29 @@ body {
 
 /* Imagen de la pareja en Nota Importante */
 .pareja-img {
-  height: 25rem;             /* 👈 ajusta el tamaño aqui */
+  height: 20rem;             /* 👈 ajusta el tamaño aqui */
   width: auto;
   display: block;
   margin: 0.5rem auto;
   object-fit: contain;
 }
 
-/* Hoja "Nota Importante" — bajar el contenido */
+/* Hoja "Nota Importante" — texto arriba, pareja abajo sin chocarse */
+.hoja:nth-of-type(6) {
+  position: relative;
+  justify-content: flex-start;     /* 👈 texto arriba */
+  padding-top: 12vh;
+  padding-bottom: 35vh;            /* 👈 reserva el espacio donde estara la pareja */
+  gap: 1rem;
+}
+
+/* Pareja anclada al fondo, centrada horizontal */
 .hoja:nth-of-type(6) .pareja-img {
   position: absolute;
-  bottom: 4vh;
+  bottom: 8vh;
   left: 50%;
-  transform: translateX(-65%);   /* 👈 -65% en vez de -50% lo mueve a la izquierda */
+  transform: translateX(-50%);
   margin: 0;
 }
+
 
