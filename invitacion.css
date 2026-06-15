@@ -279,7 +279,7 @@ body {
 /* Pareja anclada al fondo, centrada horizontal */
 .hoja:nth-of-type(6) .pareja-img {
   position: absolute;
-  bottom: 15vh;
+  bottom: 10vh;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
